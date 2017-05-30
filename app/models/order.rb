@@ -1,8 +1,5 @@
 class Order < ApplicationRecord
   before_create :generate_token
-  def generate_token
-    self.token = SecureRandom.uuid
-  end
   belongs_to :user
   validates :billing_name,      presence: true
   validates :billing_address,   presence: true
@@ -16,5 +13,8 @@ class Order < ApplicationRecord
 
   def pay!
     self.update_columns(is_paid: true )
+  end
+  def generate_token
+    self.token = SecureRandom.uuid
   end
 end
